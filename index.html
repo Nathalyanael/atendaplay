@@ -1795,6 +1795,8 @@
 
         var waText = 'Olá, meu nome é ' + nome + '. Quero começar no plano ' + currentPlan + ' da AtendePlay.\nE-mail: ' + email + '\nTelefone: ' + telefone;
         var waUrl = 'https://api.whatsapp.com/send/?phone=' + PLAN_WA_PHONE + '&text=' + encodeURIComponent(waText) + '&type=phone_number&app_absent=0';
+        try { fbq('track', 'Lead'); } catch(err) {}
+
         window.open(waUrl, '_blank', 'noopener');
 
         form.style.display = 'none';
