@@ -66,7 +66,7 @@
     body{
       font-family:"SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Arial,sans-serif;
       background:linear-gradient(180deg,#fbfbf7 0%,#f6f6f2 30%,#f4f4ef 100%);
-      color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;
+      color:var(--text);overflow-x:clip;-webkit-font-smoothing:antialiased;
     }
     h1,h2,h3{font-weight:700;letter-spacing:-.045em;line-height:1}
     p{line-height:1.55}
@@ -323,7 +323,7 @@
 
     /* ===== PLANOS ===== */
     .pricing{background:linear-gradient(180deg,#f4f4ef 0%,#f7f7f3 100%)}
-    .color-bar{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:26px auto 40px;padding:10px 12px 10px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-xs);width:max-content;max-width:100%;font-size:14px;color:#45454f}
+    .color-bar{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:26px auto 18px;padding:10px 12px 10px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-xs);width:max-content;max-width:100%;font-size:14px;color:#45454f}
     .color-bar i{width:28px;height:28px;border-radius:50%;background:var(--brand);transition:background .4s ease;flex:0 0 auto}
     .color-bar b{color:var(--text)}
     .color-bar i.acc-dot{margin-left:-20px;background:var(--accent);box-shadow:0 0 0 2px #fff,inset 0 0 0 1px rgba(0,0,0,.18)}
@@ -343,6 +343,16 @@
     .price .cur{font-size:18px;font-weight:700;color:rgba(255,255,255,.75)}
     .price .val{font-size:52px;font-weight:700;letter-spacing:-.06em;line-height:.95;color:#fff}
     .price .per{font-size:15px;color:rgba(255,255,255,.7);font-weight:600}
+    .cycle{display:flex;justify-content:center;margin:0 0 40px}
+    .cycle-toggle{display:inline-flex;gap:4px;padding:5px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-xs)}
+    .cycle-toggle button{border:0;background:transparent;padding:11px 20px;border-radius:999px;font-size:15px;font-weight:700;color:#61616d;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.25s ease}
+    .cycle-toggle button.is-active{background:#111114;color:#fff}
+    .cycle-toggle small{font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:rgba(163,255,0,.25);color:#2d4a00}
+    .cycle-toggle button.is-active small{background:var(--lime);color:#162100}
+    .price .val{transition:opacity .2s ease}
+    .price-sub{margin-top:8px;min-height:40px;font-size:13px;line-height:1.45;color:rgba(255,255,255,.72)}
+    .price-sub .tag{display:inline-flex;padding:3px 9px;border-radius:999px;background:rgba(163,255,0,.16);border:1px solid rgba(163,255,0,.35);color:var(--lime);font-size:12px;font-weight:700;margin-bottom:4px}
+    .price-sub b{color:#fff;font-weight:700}
     .price-note{display:inline-flex;margin-top:10px;padding:5px 10px;border-radius:999px;background:rgba(163,255,0,.16);border:1px solid rgba(163,255,0,.35);color:var(--lime);font-size:12px;font-weight:700;width:max-content}
     .plan .li-dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 2px rgba(255,255,255,.35);vertical-align:-1px;margin-left:2px;transition:background .4s ease}
     .plan .plan-color{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.7);margin-bottom:12px}
@@ -446,6 +456,9 @@
       .section{padding:72px 0}
       .section-head p{font-size:16px}
       .step h3{font-size:23px}
+      .cycle-toggle button{padding:10px 16px;font-size:14px}
+      .cycle{position:sticky;top:10px;z-index:20}
+      .cycle-toggle{box-shadow:0 10px 30px rgba(17,17,20,.14)}
       .color-bar{border-radius:20px;justify-content:center;text-align:center}
       .plan{padding:26px}
     }
@@ -800,12 +813,17 @@
           <i></i><i class="acc-dot"></i><span>Seu app: <b class="js-brand-name">Vinho</b> + <b class="js-accent-name">Amarelo</b></span>
           <a href="#personalize">Personalizar</a>
         </div>
+        <div class="cycle" data-reveal>
+          <div class="cycle-toggle" role="radiogroup" aria-label="Período do plano">
+            <button type="button" class="is-active" data-cycle="anual" role="radio" aria-checked="true">Anual <small>menor preço</small></button>
+            <button type="button" data-cycle="semestral" role="radio" aria-checked="false">Semestral</button>
+          </div>
+        </div>
         <div class="price-grid" data-reveal>
           <article class="plan">
             <div class="plan-name">Básico</div>
-            <div class="price"><span class="cur">R$</span><span class="val">29,90</span><span class="per">/mês</span></div>
-            
-            <p class="plan-desc">Para começar a organizar sua operação em um só lugar.</p>
+            <div class="price" data-key="basico"><span class="cur">R$</span><span class="val">39,90</span><span class="per">/mês</span></div>
+            <div class="price-sub" data-sub="basico"></div><p class="plan-desc">Para começar a organizar sua operação em um só lugar.</p>
             <ul>
               <li><span class="ck">✓</span> App exclusivo do seu negócio</li>
               <li><span class="ck">✓</span> Agendamentos pelo app</li>
@@ -816,12 +834,12 @@
               <li><span class="ck">✓</span> Relatórios</li>
               <li><span class="ck">✓</span><span>App na cor <span class="js-brand-lc">vinho</span> <i class="li-dot"></i></span></li>
             </ul>
-            <button type="button" class="btn btn-light plan-select-btn" data-plan="Básico" data-price="R$ 29,90/mês">Escolher Básico</button>
+            <button type="button" class="btn btn-light plan-select-btn" data-plan="Básico" data-key="basico">Escolher Básico</button>
           </article>
           <article class="plan popular">
             <span class="popular-label">Mais assinado</span><div class="plan-name">Intermediário</div>
-            <div class="price"><span class="cur">R$</span><span class="val">19,90</span><span class="per">/mês</span></div>
-            <div class="price-note">nos 3 primeiros meses</div>
+            <div class="price" data-key="inter"><span class="cur">R$</span><span class="val">39,90</span><span class="per">/mês</span></div>
+            <div class="price-sub" data-sub="inter"></div>
             <p class="plan-desc">Para automatizar mais etapas do atendimento e facilitar sua rotina.</p>
             <ul>
               <li><span class="ck">✓</span> Tudo do plano Básico</li>
@@ -830,13 +848,12 @@
               <li><span class="ck">✓</span> Confirmação automática via WhatsApp</li>
               <li><span class="ck">✓</span><span>App na cor <span class="js-brand-lc">vinho</span> <i class="li-dot"></i></span></li>
             </ul>
-            <button type="button" class="btn btn-lime plan-select-btn" data-plan="Intermediário" data-price="R$ 19,90/mês nos 3 primeiros meses">Escolher Intermediário</button>
+            <button type="button" class="btn btn-lime plan-select-btn" data-plan="Intermediário" data-key="inter">Escolher Intermediário</button>
           </article>
           <article class="plan">
             <div class="plan-name">Pro</div>
-            <div class="price"><span class="cur">R$</span><span class="val">89,90</span><span class="per">/mês</span></div>
-            
-            <p class="plan-desc">Para integrar o WhatsApp à sua operação e automatizar agendamentos e respostas.</p>
+            <div class="price" data-key="pro"><span class="cur">R$</span><span class="val">39,90</span><span class="per">/mês</span></div>
+            <div class="price-sub" data-sub="pro"></div><p class="plan-desc">Para integrar o WhatsApp à sua operação e automatizar agendamentos e respostas.</p>
             <ul>
               <li><span class="ck">✓</span> Tudo do plano Intermediário</li>
               <li><span class="ck">✓</span> Agendamento pelo WhatsApp</li>
@@ -844,7 +861,7 @@
               <li><span class="ck">✓</span> Notificações enviadas diretamente no app (push)</li>
               <li><span class="ck">✓</span><span>App na cor <span class="js-brand-lc">vinho</span> <i class="li-dot"></i></span></li>
             </ul>
-            <button type="button" class="btn btn-light plan-select-btn" data-plan="Pro" data-price="R$ 89,90/mês">Escolher Pro</button>
+            <button type="button" class="btn btn-light plan-select-btn" data-plan="Pro" data-key="pro">Escolher Pro</button>
           </article>
         </div>
       </div>
@@ -1186,6 +1203,29 @@
       });
     });
 
+    /* ===== preços por período ===== */
+    var PRICES = {
+      anual:     { basico:{now:'39,90'}, inter:{now:'39,90', after:'59,90'}, pro:{now:'39,90', after:'79,90'} },
+      semestral: { basico:{now:'49,90'}, inter:{now:'49,90', after:'69,90'}, pro:{now:'49,90', after:'89,90'} }
+    };
+    var cycle = 'anual';
+    function priceText(p){ return p.after ? 'R$ ' + p.now + '/mês nos 3 primeiros meses, depois R$ ' + p.after + '/mês' : 'R$ ' + p.now + '/mês'; }
+    function renderPrices(){
+      var label = cycle === 'anual' ? 'plano anual' : 'plano semestral';
+      Object.keys(PRICES[cycle]).forEach(function(k){
+        var p = PRICES[cycle][k];
+        var box = document.querySelector('.price[data-key="' + k + '"] .val'); if (box) box.textContent = p.now;
+        var sub = document.querySelector('[data-sub="' + k + '"]');
+        if (sub) sub.innerHTML = p.after ? '<span class="tag">nos 3 primeiros meses</span><br>Depois, <b>R$ ' + p.after + '/mês</b> no ' + label : 'No ' + label;
+      });
+      document.querySelectorAll('.plan-select-btn').forEach(function(b){
+        var k = b.getAttribute('data-key'); if (k) b.setAttribute('data-price', priceText(PRICES[cycle][k]));
+      });
+      document.querySelectorAll('[data-cycle]').forEach(function(b){ var on = b.getAttribute('data-cycle') === cycle; b.classList.toggle('is-active', on); b.setAttribute('aria-checked', on ? 'true' : 'false'); });
+    }
+    document.querySelectorAll('[data-cycle]').forEach(function(b){ b.addEventListener('click', function(){ cycle = b.getAttribute('data-cycle'); renderPrices(); }); });
+    renderPrices();
+
     /* ===== modal do plano ===== */
     var overlay = document.getElementById('planModalOverlay');
     var form = document.getElementById('planModalForm');
@@ -1235,6 +1275,7 @@
         telefone: telefone,
         plano: currentPlan,
         preco: currentPrice,
+        periodo: cycle,
         cor: state.brand.name + ' (' + state.brand.hex + ')',
         cor_hex: state.brand.hex,
         cor_botoes: state.accent.name + ' (' + state.accent.hex + ')',
@@ -1248,7 +1289,7 @@
         fetch(SHEET_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(payload).toString() }).catch(function(){});
       } catch(err){}
 
-      var lines = ['Olá, meu nome é ' + nome + '. Quero começar no plano ' + currentPlan + (currentPrice ? ' (' + currentPrice + ')' : '') + ' da AtendePlay.'].concat(customLines());
+      var lines = ['Olá, meu nome é ' + nome + '. Quero começar no plano ' + currentPlan + ' da AtendePlay, no período ' + cycle + '.', 'Valor: ' + currentPrice].concat(customLines());
       lines.push('E-mail: ' + email, 'Telefone: ' + telefone);
       var waUrl = 'https://api.whatsapp.com/send/?phone=' + WA_PHONE + '&text=' + encodeURIComponent(lines.join('\n')) + '&type=phone_number&app_absent=0';
       window.open(waUrl, '_blank', 'noopener');
