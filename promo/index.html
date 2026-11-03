@@ -1286,7 +1286,11 @@
         data: new Date().toISOString()
       };
       try {
-        fetch(SHEET_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(payload).toString() }).catch(function(){});
+        /* envio que sobrevive à abertura do WhatsApp (inclusive no navegador do Instagram/Facebook) */
+        var body = new URLSearchParams(payload);
+        var sent = false;
+        try { if (navigator.sendBeacon) sent = navigator.sendBeacon(SHEET_URL, body); } catch(e){}
+        if (!sent) fetch(SHEET_URL, { method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:body.toString() }).catch(function(){});
       } catch(err){}
 
       var lines = ['Olá, meu nome é ' + nome + '. Quero começar no plano ' + currentPlan + ' da AtendePlay, no período ' + cycle + '.', 'Valor: ' + currentPrice].concat(customLines());
